@@ -15,7 +15,7 @@ const links = [
   { to: '/contacts', icon: Users, label: 'Contacts' },
   { to: '/campaigns', icon: Send, label: 'Campaigns' },
   { to: '/api-keys', icon: KeyRound, label: 'API Keys' },
-  { to: '/settings', icon: Settings, label: 'Settings' },
+  // { to: '/settings', icon: Settings, label: 'Settings' },
 ];
 
 export default function Sidebar() {
