@@ -5,9 +5,10 @@ import {
   Users,
   Send,
   KeyRound,
-  Settings,
   Terminal,
+  X,
 } from 'lucide-react';
+import { useUIStore } from '../../store/useUIStore';
 
 const links = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
@@ -15,18 +16,29 @@ const links = [
   { to: '/contacts', icon: Users, label: 'Contacts' },
   { to: '/campaigns', icon: Send, label: 'Campaigns' },
   { to: '/api-keys', icon: KeyRound, label: 'API Keys' },
-  // { to: '/settings', icon: Settings, label: 'Settings' },
 ];
 
 export default function Sidebar() {
-  return (
-    <aside className="flex w-60 shrink-0 flex-col border-r border-neon-green/15 bg-terminal-surface/80">
-      <div className="flex items-center gap-2 border-b border-neon-green/15 px-5 py-5">
-        <Terminal className="text-neon-green" size={22} />
-        <div>
-          <div className="font-mono text-lg font-bold tracking-widest text-neon-green">HEXA</div>
-          <div className="font-mono text-[10px] tracking-wider text-gray-500">MAILER v1.0</div>
+  const sidebarMobileOpen = useUIStore((s) => s.sidebarMobileOpen);
+  const setSidebarMobileOpen = useUIStore((s) => s.setSidebarMobileOpen);
+
+  const sidebarContent = (
+    <aside className="flex h-full w-64 shrink-0 flex-col border-r border-neon-green/15 bg-terminal-surface md:w-60">
+      <div className="flex items-center justify-between border-b border-neon-green/15 px-5 py-5">
+        <div className="flex items-center gap-2">
+          <Terminal className="text-neon-green" size={22} />
+          <div>
+            <div className="font-mono text-lg font-bold tracking-widest text-neon-green">HEXA</div>
+            <div className="font-mono text-[10px] tracking-wider text-gray-500">MAILER v1.0</div>
+          </div>
         </div>
+        <button
+          onClick={() => setSidebarMobileOpen(false)}
+          className="text-gray-400 hover:text-neon-red md:hidden"
+          aria-label="Close menu"
+        >
+          <X size={20} />
+        </button>
       </div>
 
       <nav className="flex flex-1 flex-col gap-1 p-3">
@@ -35,6 +47,7 @@ export default function Sidebar() {
             key={to}
             to={to}
             end={to === '/'}
+            onClick={() => setSidebarMobileOpen(false)}
             className={({ isActive }) =>
               `flex items-center gap-3 rounded px-3 py-2.5 font-mono text-xs uppercase tracking-wider transition-all ${
                 isActive
@@ -53,5 +66,25 @@ export default function Sidebar() {
         <span className="text-neon-green">●</span> system online
       </div>
     </aside>
+  );
+
+  return (
+    <>
+      <div className="hidden shrink-0 md:block">
+        {sidebarContent}
+      </div>
+
+      {sidebarMobileOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={() => setSidebarMobileOpen(false)}
+          />
+          <div className="relative h-full w-64 max-w-[85%]">
+            {sidebarContent}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

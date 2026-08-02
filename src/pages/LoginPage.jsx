@@ -39,14 +39,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="terminal-bg relative flex min-h-screen items-center justify-center p-4">
-      <div className="glow-card pulse-glow relative w-full max-w-md rounded-lg p-8">
-        <div className="mb-8 flex flex-col items-center gap-2">
-          <Terminal className="text-neon-green" size={36} />
-          <h1 className="font-mono text-2xl font-bold tracking-[0.3em] text-neon-green">
+    <div className="terminal-bg relative flex min-h-screen items-center justify-center p-3 sm:p-4">
+      <div className="glow-card pulse-glow relative w-full max-w-md rounded-lg p-5 sm:p-8">
+        <div className="mb-6 flex flex-col items-center gap-2 sm:mb-8">
+          <Terminal className="text-neon-green" size={28} />
+          <h1 className="font-mono text-xl font-bold tracking-[0.2em] text-neon-green sm:text-2xl sm:tracking-[0.3em]">
             HEXA
           </h1>
-          <p className="font-mono text-xs text-gray-500">
+          <p className="font-mono text-[10px] text-gray-500 sm:text-xs">
             {mode === "login"
               ? "> authenticate to continue"
               : "> initialize admin account"}
@@ -54,7 +54,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
           {mode === "register" && (
             <Input
               label="Name"
@@ -92,32 +92,6 @@ export default function LoginPage() {
             {mode === "login" ? "Login" : "Register"}
           </Button>
         </form>
-
-        {/* <p className="mt-6 text-center font-mono text-xs text-gray-500">
-          {mode === 'login' ? (
-            <>
-              No account?{' '}
-              <button
-                type="button"
-                onClick={() => setMode('register')}
-                className="text-neon-cyan hover:underline"
-              >
-                Register admin
-              </button>
-            </>
-          ) : (
-            <>
-              Have access?{' '}
-              <button
-                type="button"
-                onClick={() => setMode('login')}
-                className="text-neon-cyan hover:underline"
-              >
-                Login
-              </button>
-            </>
-          )}
-        </p> */}
       </div>
     </div>
   );

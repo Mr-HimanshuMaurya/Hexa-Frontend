@@ -63,32 +63,36 @@ export default function ContactsPage() {
   return (
     <>
       <Topbar title="contacts" />
-      <main className="flex-1 overflow-y-auto p-6">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <main className="flex-1 overflow-y-auto p-3 sm:p-6">
+        <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4">
           <div>
-            <h1 className="font-mono text-lg uppercase tracking-widest text-neon-green">
+            <h1 className="font-mono text-base uppercase tracking-widest text-neon-green sm:text-lg">
               Contacts
             </h1>
-            <p className="mt-1 font-mono text-xs text-gray-500">
+            <p className="mt-1 font-mono text-[10px] text-gray-500 sm:text-xs">
               {data?.pagination?.total ?? 0} total in database
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
             {selectedIds.length > 0 && (
-              <Button variant="danger" size="sm" onClick={handleBulkDelete}>
+              <Button variant="danger" size="sm" onClick={handleBulkDelete} className="w-full sm:w-auto">
                 <Trash2 size={14} /> Delete ({selectedIds.length})
               </Button>
             )}
-            <Button variant="secondary" onClick={() => setBulkOpen(true)}>
-              <UploadCloud size={14} /> Bulk Import
-            </Button>
-            <Button variant="solid" onClick={() => setAddOpen(true)}>
-              <Plus size={14} /> Add Contact
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="secondary" onClick={() => setBulkOpen(true)} className="flex-1 sm:flex-none">
+                <UploadCloud size={14} />
+                <span className="sm:inline">Bulk Import</span>
+              </Button>
+              <Button variant="solid" onClick={() => setAddOpen(true)} className="flex-1 sm:flex-none">
+                <Plus size={14} />
+                <span className="sm:inline">Add</span>
+              </Button>
+            </div>
           </div>
         </div>
 
-        <div className="mb-4 max-w-sm">
+        <div className="mb-3 w-full sm:mb-4 sm:max-w-sm">
           <Input
             placeholder="Search email or name..."
             value={search}
@@ -112,7 +116,7 @@ export default function ContactsPage() {
         )}
 
         {data?.pagination?.pages > 1 && (
-          <div className="mt-6 flex items-center justify-center gap-3">
+          <div className="mt-4 flex items-center justify-center gap-3 sm:mt-6">
             <Button size="sm" variant="ghost" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>
               Prev
             </Button>

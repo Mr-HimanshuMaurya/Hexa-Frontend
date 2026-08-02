@@ -6,7 +6,7 @@ export default function DashboardLayout() {
   const lowGlow = useUIStore((s) => s.lowGlow);
 
   return (
-    <div className={`flex h-screen overflow-hidden terminal-bg ${lowGlow ? 'low-glow' : ''}`}>
+    <div className={`relative flex min-h-screen flex-col overflow-hidden terminal-bg md:h-screen md:flex-row ${lowGlow ? 'low-glow' : ''}`}>
       <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         <Outlet />

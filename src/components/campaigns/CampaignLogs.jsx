@@ -28,24 +28,24 @@ export default function CampaignLogs({ campaignId }) {
   };
 
   return (
-    <div className="glow-card rounded-lg p-5">
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <h3 className="font-mono text-xs uppercase tracking-widest text-neon-cyan">Send Logs</h3>
-        <div className="flex gap-2">
+    <div className="glow-card rounded-lg p-4 sm:p-5">
+      <div className="mb-3 flex flex-col gap-3 sm:mb-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <h3 className="font-mono text-[11px] uppercase tracking-widest text-neon-cyan sm:text-xs">Send Logs</h3>
+        <div className="flex flex-col gap-2 sm:flex-row sm:gap-2">
           <select
             value={status}
             onChange={(e) => {
               setStatus(e.target.value);
               setPage(1);
             }}
-            className="rounded border border-neon-green/20 bg-terminal-bg px-2 py-1 font-mono text-xs text-gray-300 outline-none"
+            className="w-full rounded border border-neon-green/20 bg-terminal-bg px-2 py-1.5 font-mono text-xs text-gray-300 outline-none sm:w-auto sm:py-1"
           >
             <option value="">All</option>
             <option value="sent">Sent</option>
             <option value="failed">Failed</option>
             <option value="pending">Pending</option>
           </select>
-          <Button size="sm" variant="ghost" onClick={downloadCsv} disabled={!data?.data?.length}>
+          <Button size="sm" variant="ghost" onClick={downloadCsv} disabled={!data?.data?.length} className="w-full sm:w-auto">
             Download CSV
           </Button>
         </div>
@@ -53,7 +53,7 @@ export default function CampaignLogs({ campaignId }) {
 
       {isLoading && <Spinner text="Loading logs" />}
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto -mx-4 px-4 sm:-mx-5 sm:px-5">
         <table className="w-full min-w-[560px] text-left">
           <thead className="border-b border-neon-green/15 font-mono text-[10px] uppercase tracking-widest text-gray-500">
             <tr>

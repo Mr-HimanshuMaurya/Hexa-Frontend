@@ -55,11 +55,11 @@ export default function AddContactModal({ open, onClose }) {
           onChange={(e) => setTags(e.target.value)}
           placeholder="leads, newsletter"
         />
-        <div className="flex justify-end gap-2 pt-2">
-          <Button variant="ghost" type="button" onClick={onClose}>
+        <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
+          <Button variant="ghost" type="button" onClick={onClose} className="w-full sm:w-auto">
             Cancel
           </Button>
-          <Button type="submit" variant="solid" loading={createContact.isPending}>
+          <Button type="submit" variant="solid" loading={createContact.isPending} className="w-full sm:w-auto">
             Add
           </Button>
         </div>

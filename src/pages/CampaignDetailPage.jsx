@@ -27,18 +27,18 @@ export default function CampaignDetailPage() {
   return (
     <>
       <Topbar title={`campaigns/${id?.slice(-6)}`} />
-      <main className="flex-1 overflow-y-auto p-6">
+      <main className="flex-1 overflow-y-auto p-3 sm:p-6">
         <Link
           to="/campaigns"
-          className="mb-6 inline-flex items-center gap-1 font-mono text-xs text-gray-500 hover:text-neon-cyan"
+          className="mb-4 inline-flex items-center gap-1 font-mono text-[11px] text-gray-500 hover:text-neon-cyan sm:mb-6 sm:text-xs"
         >
-          <ArrowLeft size={12} /> Back to campaigns
+          <ArrowLeft size={10} className="sm:size-12" /> Back to campaigns
         </Link>
 
         {isLoading && <Spinner text="Loading campaign" />}
 
         {progress && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <CampaignProgress
               progress={progress}
               onResume={handleResume}

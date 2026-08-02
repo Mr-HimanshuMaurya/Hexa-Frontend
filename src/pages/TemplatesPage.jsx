@@ -33,22 +33,22 @@ export default function TemplatesPage() {
   return (
     <>
       <Topbar title="templates" />
-      <main className="flex-1 overflow-y-auto p-6">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <main className="flex-1 overflow-y-auto p-3 sm:p-6">
+        <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-4">
           <div>
-            <h1 className="font-mono text-lg uppercase tracking-widest text-neon-green">
+            <h1 className="font-mono text-base uppercase tracking-widest text-neon-green sm:text-lg">
               Templates
             </h1>
-            <p className="mt-1 font-mono text-xs text-gray-500">
+            <p className="mt-1 font-mono text-[10px] text-gray-500 sm:text-xs">
               Reusable HTML emails with {'{{name}}'} / {'{{email}}'} placeholders
             </p>
           </div>
-          <Button variant="solid" onClick={() => setEditor(true, null)}>
+          <Button variant="solid" onClick={() => setEditor(true, null)} className="self-start sm:self-auto">
             <Plus size={14} /> New Template
           </Button>
         </div>
 
-        <div className="mb-6 max-w-sm">
+        <div className="mb-4 w-full max-w-sm sm:mb-6">
           <Input
             placeholder="Search templates..."
             value={search}
@@ -70,7 +70,7 @@ export default function TemplatesPage() {
         )}
 
         {data?.pagination?.pages > 1 && (
-          <div className="mt-6 flex items-center justify-center gap-3">
+          <div className="mt-4 flex items-center justify-center gap-3 sm:mt-6">
             <Button
               size="sm"
               variant="ghost"

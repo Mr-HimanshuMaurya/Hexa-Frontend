@@ -7,6 +7,7 @@ export const useUIStore = create((set) => ({
   templateEditorOpen: false,
   editingTemplateId: null,
   lowGlow: false,
+  sidebarMobileOpen: false,
 
   // Selection
   selectedContactIds: [],
@@ -18,6 +19,8 @@ export const useUIStore = create((set) => ({
   setTemplateEditorOpen: (open, id = null) =>
     set({ templateEditorOpen: open, editingTemplateId: id }),
   toggleLowGlow: () => set((s) => ({ lowGlow: !s.lowGlow })),
+  setSidebarMobileOpen: (v) => set({ sidebarMobileOpen: v }),
+  toggleSidebarMobile: () => set((s) => ({ sidebarMobileOpen: !s.sidebarMobileOpen })),
 
   setSelectedContactIds: (ids) => set({ selectedContactIds: ids }),
   toggleContactId: (id) =>

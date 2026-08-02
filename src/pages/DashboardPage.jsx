@@ -40,7 +40,7 @@ export default function DashboardPage() {
   return (
     <>
       <Topbar title="dashboard" />
-      <main className="flex-1 overflow-y-auto p-6">
+      <main className="flex-1 overflow-y-auto p-3 sm:p-6">
         {isLoading && <Spinner text="Fetching system stats" />}
         {isError && (
           <div className="font-mono text-sm text-neon-red">
@@ -50,27 +50,28 @@ export default function DashboardPage() {
 
         {data && (
           <>
-            <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="mb-6 grid grid-cols-2 gap-3 sm:mb-8 sm:gap-4 md:grid-cols-2 xl:grid-cols-4">
               {cards.map(({ label, value, icon: Icon, color }) => (
-                <div key={label} className="glow-card rounded-lg p-5">
-                  <div className="mb-3 flex items-center justify-between">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-gray-500">
+                <div key={label} className="glow-card rounded-lg p-3 sm:p-5">
+                  <div className="mb-2 flex items-center justify-between sm:mb-3">
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-gray-500 sm:text-[10px]">
                       {label}
                     </span>
-                    <Icon size={16} className={color} />
+                    <Icon size={14} className={color} />
                   </div>
-                  <div className={`font-mono text-2xl font-bold ${color}`}>{value}</div>
+                  <div className={`font-mono text-lg font-bold sm:text-2xl ${color}`}>{value}</div>
                 </div>
               ))}
             </div>
 
-            <div className="grid gap-6 lg:grid-cols-2">
-              <div className="glow-card rounded-lg p-5">
-                <div className="mb-4 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-neon-cyan">
-                  <Activity size={14} />
+            <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
+              <div className="glow-card rounded-lg p-4 sm:p-5">
+                <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-neon-cyan sm:mb-4 sm:text-xs">
+                  <Activity size={12} className="sm:hidden" />
+                  <Activity size={14} className="hidden sm:inline" />
                   System Status
                 </div>
-                <div className="space-y-1 font-mono text-xs text-gray-400">
+                <div className="space-y-1 font-mono text-[11px] text-gray-400 sm:text-xs">
                   <p>
                     <span className="text-neon-green">$</span> active_keys: {data.activeKeys}
                   </p>
@@ -88,22 +89,23 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className="glow-card rounded-lg p-5">
-                <div className="mb-4 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-neon-cyan">
-                  <BarChart3 size={14} />
+              <div className="glow-card rounded-lg p-4 sm:p-5">
+                <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-neon-cyan sm:mb-4 sm:text-xs">
+                  <BarChart3 size={12} className="sm:hidden" />
+                  <BarChart3 size={14} className="hidden sm:inline" />
                   Recent Campaigns
                 </div>
                 {data.recentCampaigns?.length === 0 ? (
-                  <p className="font-mono text-xs text-gray-500">No campaigns yet.</p>
+                  <p className="font-mono text-[11px] text-gray-500 sm:text-xs">No campaigns yet.</p>
                 ) : (
                   <ul className="space-y-2">
                     {data.recentCampaigns?.map((c) => (
                       <li key={c._id}>
                         <Link
                           to={`/campaigns/${c._id}`}
-                          className="flex items-center justify-between rounded border border-transparent px-2 py-1.5 transition hover:border-neon-green/20 hover:bg-neon-green/5"
+                          className="flex items-center justify-between gap-2 rounded border border-transparent px-2 py-1.5 transition hover:border-neon-green/20 hover:bg-neon-green/5"
                         >
-                          <span className="truncate font-mono text-xs text-gray-300">{c.name}</span>
+                          <span className="truncate font-mono text-[11px] text-gray-300 sm:text-xs">{c.name}</span>
                           <Badge color={statusColor[c.status] || 'gray'}>{c.status}</Badge>
                         </Link>
                       </li>

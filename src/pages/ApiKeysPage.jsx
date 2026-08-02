@@ -61,19 +61,19 @@ export default function ApiKeysPage() {
   return (
     <>
       <Topbar title="api-keys" />
-      <main className="flex-1 overflow-y-auto p-6">
-        <div className="mb-6">
-          <h1 className="font-mono text-lg uppercase tracking-widest text-neon-green">
+      <main className="flex-1 overflow-y-auto p-3 sm:p-6">
+        <div className="mb-4 sm:mb-6">
+          <h1 className="font-mono text-base uppercase tracking-widest text-neon-green sm:text-lg">
             Brevo API Keys
           </h1>
-          <p className="mt-1 font-mono text-xs text-gray-500">
+          <p className="mt-1 font-mono text-[10px] text-gray-500 sm:text-xs">
             Keys rotate automatically when daily quota (default 300) is reached.
           </p>
         </div>
 
         <form
           onSubmit={handleAdd}
-          className="glow-card mb-8 grid gap-4 rounded-lg p-5 md:grid-cols-4"
+          className="glow-card mb-6 grid gap-3 rounded-lg p-4 sm:mb-8 sm:gap-4 sm:p-5 md:grid-cols-4"
         >
           <Input label="Label" value={label} onChange={(e) => setLabel(e.target.value)} placeholder="Key 1" />
           <Input
@@ -99,17 +99,17 @@ export default function ApiKeysPage() {
 
         {isLoading && <Spinner text="Loading keys" />}
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
           {keys?.map((key) => {
             const pct = key.dailyLimit ? Math.round((key.usedToday / key.dailyLimit) * 100) : 0;
             return (
-              <div key={key._id} className="glow-card rounded-lg p-5">
-                <div className="mb-3 flex items-start justify-between">
-                  <div>
-                    <div className="font-mono text-sm text-neon-green">{key.label}</div>
-                    <div className="mt-1 font-mono text-xs text-gray-500">{key.apiKeyMasked}</div>
+              <div key={key._id} className="glow-card rounded-lg p-4 sm:p-5">
+                <div className="mb-3 flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <div className="truncate font-mono text-sm text-neon-green">{key.label}</div>
+                    <div className="mt-1 truncate font-mono text-[11px] text-gray-500 sm:text-xs">{key.apiKeyMasked}</div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex shrink-0 gap-2">
                     <button
                       onClick={() => handleToggle(key)}
                       className={`rounded border p-1.5 ${

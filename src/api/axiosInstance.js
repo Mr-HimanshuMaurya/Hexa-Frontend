@@ -1,8 +1,11 @@
-import axios from 'axios';
-import { useAuthStore } from '../store/useAuthStore';
+import axios from "axios";
+import { useAuthStore } from "../store/useAuthStore";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL:
+    import.meta.env.VITE_API_URL ||
+    "https://hexa.chickenkiller.com/api" ||
+    "http://localhost:5000/api",
   timeout: 60000,
 });
 
@@ -19,13 +22,13 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       const path = window.location.pathname;
-      if (path !== '/login') {
+      if (path !== "/login") {
         useAuthStore.getState().logout();
-        window.location.href = '/login';
+        window.location.href = "/login";
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

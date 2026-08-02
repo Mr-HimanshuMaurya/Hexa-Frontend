@@ -8,7 +8,7 @@ export default function TemplateList({ templates, onEdit, onDelete }) {
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {templates.map((t) => (
         <TemplateCard key={t._id} template={t} onEdit={onEdit} onDelete={onDelete} />
       ))}

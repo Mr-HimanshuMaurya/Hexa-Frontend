@@ -61,7 +61,7 @@ export default function CampaignCreate({ open, onClose }) {
 
   return (
     <Modal open={open} onClose={onClose} title="New Campaign" wide>
-      <div className="space-y-5">
+      <div className="space-y-4 sm:space-y-5">
         <Input
           label="Campaign Name"
           value={name}
@@ -86,7 +86,7 @@ export default function CampaignCreate({ open, onClose }) {
             ))}
           </select>
           {selectedTemplate && (
-            <div className="mt-2 h-28 overflow-hidden rounded border border-neon-cyan/20 bg-white p-2 text-[8px] text-gray-800">
+            <div className="mt-2 h-24 overflow-hidden rounded border border-neon-cyan/20 bg-white p-2 text-[8px] text-gray-800 sm:h-28">
               <div
                 dangerouslySetInnerHTML={{
                   __html: selectedTemplate.htmlContent?.slice(0, 800),
@@ -97,8 +97,8 @@ export default function CampaignCreate({ open, onClose }) {
         </div>
 
         <div>
-          <div className="mb-2 flex flex-wrap items-end gap-3">
-            <div className="flex-1">
+          <div className="mb-2 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+            <div className="flex-1 min-w-0">
               <Input
                 label="Filter contacts"
                 value={search}
@@ -109,7 +109,7 @@ export default function CampaignCreate({ open, onClose }) {
                 placeholder="Search..."
               />
             </div>
-            <div className="w-40">
+            <div className="w-full sm:w-40">
               <Input
                 label="Tag"
                 value={tag}
@@ -122,8 +122,8 @@ export default function CampaignCreate({ open, onClose }) {
             </div>
           </div>
 
-          <div className="mb-2 flex items-center justify-between">
-            <label className="flex items-center gap-2 font-mono text-xs text-gray-400">
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <label className="flex items-center gap-2 font-mono text-[11px] text-gray-400 sm:text-xs">
               <input
                 type="checkbox"
                 checked={
@@ -139,26 +139,29 @@ export default function CampaignCreate({ open, onClose }) {
                     selectAllContacts(selectedIds.filter((id) => !pageIds.has(id)));
                   }
                 }}
-                className="accent-neon-green"
+                className="accent-neon-green shrink-0"
               />
-              Select page
+              <span className="hidden sm:inline">Select page</span>
+              <span className="sm:hidden">Select all</span>
             </label>
             <span className="font-mono text-[10px] text-neon-cyan">
               {selectedIds.length} selected
             </span>
           </div>
 
-          <ul className="max-h-48 divide-y divide-neon-green/10 overflow-y-auto rounded border border-neon-green/15">
+          <ul className="max-h-40 divide-y divide-neon-green/10 overflow-y-auto rounded border border-neon-green/15 sm:max-h-48">
             {contacts.map((c) => (
               <li key={c._id} className="flex items-center gap-2 px-3 py-2 hover:bg-neon-green/5">
                 <input
                   type="checkbox"
                   checked={selectedIds.includes(c._id)}
                   onChange={() => toggleContactId(c._id)}
-                  className="accent-neon-green"
+                  className="accent-neon-green shrink-0"
                 />
-                <span className="font-mono text-xs text-gray-300">{c.email}</span>
-                {c.name && <span className="text-xs text-gray-500">({c.name})</span>}
+                <div className="min-w-0">
+                  <span className="block truncate font-mono text-xs text-gray-300">{c.email}</span>
+                  {c.name && <span className="block truncate text-[10px] text-gray-500">{c.name}</span>}
+                </div>
               </li>
             ))}
             {contacts.length === 0 && (
@@ -188,11 +191,11 @@ export default function CampaignCreate({ open, onClose }) {
           )}
         </div>
 
-        <div className="flex justify-end gap-2 border-t border-neon-green/15 pt-4">
-          <Button variant="ghost" onClick={onClose}>
+        <div className="flex flex-col-reverse gap-2 border-t border-neon-green/15 pt-4 sm:flex-row sm:justify-end">
+          <Button variant="ghost" onClick={onClose} className="w-full sm:w-auto">
             Cancel
           </Button>
-          <Button variant="solid" loading={createCampaign.isPending} onClick={handleLaunch}>
+          <Button variant="solid" loading={createCampaign.isPending} onClick={handleLaunch} className="w-full sm:w-auto">
             Launch Campaign
           </Button>
         </div>
