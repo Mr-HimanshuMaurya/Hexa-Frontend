@@ -23,10 +23,15 @@ export default function CampaignCreate({ open, onClose }) {
 
   const selectedIds = useUIStore((s) => s.selectedContactIds);
   const toggleContactId = useUIStore((s) => s.toggleContactId);
-  const selectAllContacts = useUIStore((s) => s.selectAllContacts);
+  const selectMultiple = useUIStore((s) => s.selectMultiple);
+  const deselectMultiple = useUIStore((s) => s.deselectMultiple);
   const clearSelectedContacts = useUIStore((s) => s.clearSelectedContacts);
 
   const contacts = contactsData?.data || [];
+  const currentPageIds = contacts.map((c) => c._id);
+  const allCurrentPageSelected =
+    currentPageIds.length > 0 && currentPageIds.every((id) => selectedIds.includes(id));
+  const totalContacts = contactsData?.pagination?.total ?? 0;
   const templates = templatesData?.data || [];
   const selectedTemplate = templates.find((t) => t._id === templateId);
 
@@ -126,17 +131,12 @@ export default function CampaignCreate({ open, onClose }) {
             <label className="flex items-center gap-2 font-mono text-[11px] text-gray-400 sm:text-xs">
               <input
                 type="checkbox"
-                checked={
-                  contacts.length > 0 && contacts.every((c) => selectedIds.includes(c._id))
-                }
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    selectAllContacts([
-                      ...new Set([...selectedIds, ...contacts.map((c) => c._id)]),
-                    ]);
+                checked={allCurrentPageSelected}
+                onChange={() => {
+                  if (allCurrentPageSelected) {
+                    deselectMultiple(currentPageIds);
                   } else {
-                    const pageIds = new Set(contacts.map((c) => c._id));
-                    selectAllContacts(selectedIds.filter((id) => !pageIds.has(id)));
+                    selectMultiple(currentPageIds);
                   }
                 }}
                 className="accent-neon-green shrink-0"
@@ -145,7 +145,9 @@ export default function CampaignCreate({ open, onClose }) {
               <span className="sm:hidden">Select all</span>
             </label>
             <span className="font-mono text-[10px] text-neon-cyan">
-              {selectedIds.length} selected
+              {totalContacts > 0
+                ? `${selectedIds.length} of ${totalContacts} selected`
+                : `${selectedIds.length} selected`}
             </span>
           </div>
 

@@ -12,6 +12,25 @@ export const useContacts = (page = 1, search = '', tag = '') =>
     },
   });
 
+export const useContactAllIds = (search = '', tag = '', enabled = false) =>
+  useQuery({
+    queryKey: ['contacts', 'all-ids', search, tag],
+    queryFn: async () => {
+      const { data } = await api.get('/contacts/all-ids', {
+        params: { search, tag },
+      });
+      return data;
+    },
+    enabled,
+  });
+
+export const fetchContactAllIds = async (search = '', tag = '') => {
+  const { data } = await api.get('/contacts/all-ids', {
+    params: { search, tag },
+  });
+  return data;
+};
+
 export const useCreateContact = () => {
   const qc = useQueryClient();
   return useMutation({

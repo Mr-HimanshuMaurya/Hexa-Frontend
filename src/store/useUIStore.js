@@ -22,7 +22,7 @@ export const useUIStore = create((set) => ({
   setSidebarMobileOpen: (v) => set({ sidebarMobileOpen: v }),
   toggleSidebarMobile: () => set((s) => ({ sidebarMobileOpen: !s.sidebarMobileOpen })),
 
-  setSelectedContactIds: (ids) => set({ selectedContactIds: ids }),
+  setSelectedContactIds: (ids) => set({ selectedContactIds: [...new Set(ids)] }),
   toggleContactId: (id) =>
     set((s) => ({
       selectedContactIds: s.selectedContactIds.includes(id)
@@ -30,7 +30,19 @@ export const useUIStore = create((set) => ({
         : [...s.selectedContactIds, id],
     })),
   clearSelectedContacts: () => set({ selectedContactIds: [] }),
-  selectAllContacts: (ids) => set({ selectedContactIds: ids }),
+  selectMultiple: (ids) =>
+    set((s) => ({
+      selectedContactIds: [...new Set([...s.selectedContactIds, ...ids])],
+    })),
+  deselectMultiple: (ids) =>
+    set((s) => {
+      const remove = new Set(ids);
+      return {
+        selectedContactIds: s.selectedContactIds.filter((id) => !remove.has(id)),
+      };
+    }),
+  /** @deprecated use selectMultiple — kept for CampaignCreate merge behavior */
+  selectAllContacts: (ids) => set({ selectedContactIds: [...new Set(ids)] }),
 
   setSelectedTemplateId: (id) => set({ selectedTemplateId: id }),
   setCampaignContactFilter: (v) => set({ campaignContactFilter: v }),

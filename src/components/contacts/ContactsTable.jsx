@@ -12,11 +12,14 @@ export default function ContactsTable({
   contacts,
   selectedIds,
   onToggle,
-  onToggleAll,
+  onToggleAllPage,
   onDelete,
 }) {
-  const allSelected =
-    contacts.length > 0 && contacts.every((c) => selectedIds.includes(c._id));
+  const currentPageIds = contacts.map((c) => c._id);
+  const allCurrentPageSelected =
+    currentPageIds.length > 0 && currentPageIds.every((id) => selectedIds.includes(id));
+  const someCurrentPageSelected =
+    !allCurrentPageSelected && currentPageIds.some((id) => selectedIds.includes(id));
 
   return (
     <div className="overflow-x-auto rounded-lg border border-neon-green/15">
@@ -26,9 +29,13 @@ export default function ContactsTable({
             <th className="px-4 py-3">
               <input
                 type="checkbox"
-                checked={allSelected}
-                onChange={(e) => onToggleAll(e.target.checked)}
+                checked={allCurrentPageSelected}
+                ref={(el) => {
+                  if (el) el.indeterminate = someCurrentPageSelected;
+                }}
+                onChange={onToggleAllPage}
                 className="accent-neon-green"
+                aria-label="Select all on this page"
               />
             </th>
             <th className="px-4 py-3">Email</th>
